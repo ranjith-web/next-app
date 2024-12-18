@@ -10,7 +10,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { z } from 'zod';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/app/components/button';
 import { redirectToInvoice } from '@/app/lib/actions';
 import { addInvoice } from '@/app/lib/features/invoices/invoicesSlice';
 import { updateCustomerById } from '@/app/lib/features/customers/customersSlice';

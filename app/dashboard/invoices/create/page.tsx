@@ -1,6 +1,6 @@
 "use client";
-import Form from '@/app/ui/invoices/create-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Form from '@/app/components/invoices/create-form';
+import Breadcrumbs from '@/app/components/invoices/breadcrumbs';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/lib/store';
 

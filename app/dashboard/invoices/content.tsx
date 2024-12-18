@@ -1,11 +1,11 @@
 "use client";
 
 import { fetchFilteredInvoicesStatic, fetchInvoicesPagesStatic } from '@/app/lib/data';
-import Pagination from '@/app/ui/invoices/pagination';
-import Table from '@/app/ui/invoices/table';
+import Pagination from '@/app/components/invoices/pagination';
+import Table from '@/app/components/invoices/table';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/lib/store';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
+import { InvoicesTableSkeleton } from '@/app/components/skeletons';
 import { Suspense } from 'react';
 
 function Content({ currentPage, query }: { currentPage: number; query: string}) {

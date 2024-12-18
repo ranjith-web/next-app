@@ -1,6 +1,6 @@
-import Search from '@/app/ui/search';
-import { CreateInvoice } from '@/app/ui/invoices/buttons';
-import { lusitana } from '@/app/ui/fonts';
+import Search from '@/app/components/search';
+import { CreateInvoice } from '@/app/components/invoices/buttons';
+import { lusitana } from '@/app/components/fonts';
 import Content from './content';
 
 async function Page(props: {

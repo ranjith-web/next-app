@@ -2,7 +2,7 @@
 
 import { fetchFilteredCustomersStatic } from '@/app/lib/data';
 import { RootState } from '@/app/lib/store';
-import CustomersTable from '@/app/ui/customers/table';
+import CustomersTable from '@/app/components/customers/table';
 import { Metadata } from 'next';
 import { useSelector } from 'react-redux';
 
