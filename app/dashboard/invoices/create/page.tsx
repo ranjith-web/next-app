@@ -1,10 +1,12 @@
+"use client";
 import Form from '@/app/ui/invoices/create-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchCustomersStatic } from '@/app/lib/data';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/lib/store';
 
-export default async function Page() {
-    const customers = await fetchCustomersStatic();
-
+export default function Page() {
+    const customers = useSelector((state: RootState) => state.customers);
+    
     return (
         <main>
             <Breadcrumbs

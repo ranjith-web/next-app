@@ -1,6 +1,7 @@
 'use client';
 
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
+import { z } from 'zod';
 import {
   CheckIcon,
   ClockIcon,
@@ -9,16 +10,50 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
+import { editInvoice } from '@/app/lib/features/invoices/invoicesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { redirectToInvoice } from '@/app/lib/actions';
+import { RootState } from '@/app/lib/store';
+import { fetchInvoiceByIdStatic } from '@/app/lib/data';
+import { updateCustomerById } from '@/app/lib/features/customers/customersSlice';
+import { useState } from 'react';
 
 export default function EditInvoiceForm({
-  invoice,
-  customers,
+  id,
 }: {
-  invoice: InvoiceForm;
-  customers: CustomerField[];
+  id: string;
 }) {
+  const dispatch = useDispatch();
+  const invoiceState = useSelector((state: RootState) => state.invoices as InvoiceForm[]);
+  const customers = useSelector((state: RootState) => state.customers as CustomerField[]);
+  
+  const invoice = fetchInvoiceByIdStatic(id, invoiceState);
+
+  const editInvoiceHandler = (formData: FormData) => {
+    const FormSchema = z.object({
+      id: z.string(),
+      customerId: z.string(),
+      amount: z.coerce.number(),
+      status: z.enum(['pending', 'paid', 'unpaid']),
+      date: z.string(),
+    });
+    const EditInvoiceSchema = FormSchema.omit({ id: true, date: true });
+
+    const { customerId, amount, status } = EditInvoiceSchema.parse({
+      customerId: formData.get('customerId'),
+      amount: formData.get('amount'),
+      status: formData.get('status') || "unpaid",
+    });
+    const customer = customers.find(item => item.id === customerId);
+    const amountInCents = amount * 100;
+    const date = new Date().toISOString().split('T')[0];
+
+    dispatch(editInvoice({id: invoice.id, customerId, amount, status, amountInCents, date, name: customer?.name, email: customer?.email, image_url: customer?.image_url}))
+    dispatch(updateCustomerById({ customerId, amountInCents, status }));
+    redirectToInvoice();
+  }
   return (
-    <form>
+    <form action={editInvoiceHandler}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -30,7 +65,7 @@ export default function EditInvoiceForm({
               id="customer"
               name="customerId"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue={invoice.customer_id}
+              defaultValue={invoice.customerId}
             >
               <option value="" disabled>
                 Select a customer
@@ -79,7 +114,7 @@ export default function EditInvoiceForm({
                   name="status"
                   type="radio"
                   value="pending"
-                  defaultChecked={invoice.status === 'pending'}
+                  defaultChecked={invoice.status.toLowerCase() === 'pending'}
                   className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                 />
                 <label
@@ -95,7 +130,7 @@ export default function EditInvoiceForm({
                   name="status"
                   type="radio"
                   value="paid"
-                  defaultChecked={invoice.status === 'paid'}
+                  defaultChecked={invoice.status.toLowerCase() === 'paid'}
                   className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                 />
                 <label

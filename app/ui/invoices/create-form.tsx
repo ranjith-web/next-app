@@ -1,4 +1,7 @@
+"use client";
+
 import { CustomerField } from '@/app/lib/definitions';
+import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import {
   CheckIcon,
@@ -6,10 +9,38 @@ import {
   CurrencyDollarIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import { z } from 'zod';
 import { Button } from '@/app/ui/button';
-import { createInvoice } from '@/app/lib/actions';
+import { redirectToInvoice } from '@/app/lib/actions';
+import { addInvoice } from '@/app/lib/features/invoices/invoicesSlice';
+import { updateCustomerById } from '@/app/lib/features/customers/customersSlice';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
+  const dispatch = useDispatch();
+  
+  const FormSchema = z.object({
+    id: z.string(),
+    customerId: z.string(),
+    amount: z.coerce.number(),
+    status: z.enum(['pending', 'paid']),
+    date: z.string(),
+  });
+
+  const CreateInvoiceSchema = FormSchema.omit({ id: true, date: true });
+  
+  const createInvoice = (formData: FormData) => {
+      const { customerId, amount, status } = CreateInvoiceSchema.parse({
+          customerId: formData.get('customerId'),
+          amount: formData.get('amount'),
+          status: formData.get('status'),
+      });
+      const customer = customers.find(item => item.id === customerId);
+      const amountInCents = amount * 100;
+      const date = new Date().toISOString().split('T')[0];
+      dispatch(addInvoice({customerId, amount, status, amountInCents, date, name: customer?.name, email: customer?.email, image_url: customer?.image_url}))
+      dispatch(updateCustomerById({ customerId, amount, status }))
+      redirectToInvoice();
+  }
   return (
     <form action={createInvoice}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

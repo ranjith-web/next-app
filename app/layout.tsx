@@ -1,5 +1,5 @@
 import '@/app/ui/global.css';
-// import { NextAuthProvider } from './ui/next-auth';
+import StoreProvider from './storeProvider';
 
 export default function RootLayout({
   children,
@@ -9,9 +9,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <NextAuthProvider> */}
+        <StoreProvider>
           {children}
-        {/* </NextAuthProvider> */}
+        </StoreProvider>
       </body>
     </html>
   );

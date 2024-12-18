@@ -1,6 +1,6 @@
-import { fetchFilteredCustomersStatic } from '@/app/lib/data';
 import CustomersTable from '@/app/ui/customers/table';
 import { Metadata } from 'next';
+import Content from './content';
 
 export const metadata: Metadata = {
     title: 'Customers',
@@ -15,11 +15,9 @@ export default async function Page(props: {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
 
-    const customers = await fetchFilteredCustomersStatic(query);
-
     return (
         <main>
-            <CustomersTable customers={customers} />
+            <Content query={query} />
         </main>
     );
 }

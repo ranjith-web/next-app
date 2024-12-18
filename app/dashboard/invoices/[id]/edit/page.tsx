@@ -5,10 +5,6 @@ import { fetchInvoiceByIdStatic, fetchCustomersStatic } from '@/app/lib/data';
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const id = params.id;
-    const [invoice, customers] = await Promise.all([
-        fetchInvoiceByIdStatic(id),
-        fetchCustomersStatic(),
-      ]);
     return (
         <main>
             <Breadcrumbs
@@ -21,7 +17,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                     },
                 ]}
             />
-            <Form invoice={invoice} customers={customers} />
+            <Form id={id} />
         </main>
     );
 }

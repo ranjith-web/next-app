@@ -8,20 +8,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
-
-const staticInvoices = [
-  { id: 1, amount: 100, date: '2024-12-01', status: 'Paid', name: 'John Doe', email: 'john@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 2, amount: 200, date: '2024-12-02', status: 'Unpaid', name: 'Jane Doe', email: 'jane@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 3, amount: 150, date: '2024-12-03', status: 'Pending', name: 'Alice Smith', email: 'alice@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 4, amount: 300, date: '2024-12-04', status: 'Paid', name: 'Bob Brown', email: 'bob@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 5, amount: 250, date: '2024-12-05', status: 'Unpaid', name: 'Charlie White', email: 'charlie@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 6, amount: 350, date: '2024-12-06', status: 'Paid', name: 'David Green', email: 'david@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 7, amount: 120, date: '2024-12-07', status: 'Unpaid', name: 'Emily Taylor', email: 'emily@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 8, amount: 180, date: '2024-12-08', status: 'Paid', name: 'Frank Black', email: 'frank@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 9, amount: 220, date: '2024-12-09', status: 'Pending', name: 'Grace Lee', email: 'grace@example.com', image_url: 'https://via.placeholder.com/150' },
-  { id: 10, amount: 140, date: '2024-12-10', status: 'Paid', name: 'Henry White', email: 'henry@example.com', image_url: 'https://via.placeholder.com/150' },
-  // Add more invoices as needed
-];
+import store from './store';
 
 export async function fetchRevenue() {
   try {
@@ -136,23 +123,25 @@ export async function fetchFilteredInvoices(
 export function fetchFilteredInvoicesStatic(
   query: string,
   currentPage: number,
+  data: any
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   // Filter the invoices based on the query
-  const filteredInvoices = staticInvoices.filter(invoice =>
-    invoice.name.toLowerCase().includes(query.toLowerCase()) ||
-    invoice.email.toLowerCase().includes(query.toLowerCase()) ||
-    invoice.amount.toString().includes(query) ||
-    invoice.date.includes(query) ||
-    invoice.status.toLowerCase().includes(query)
+  const filteredInvoices = data.filter((invoice: any) =>
+    invoice?.name.toLowerCase().includes(query.toLowerCase()) ||
+    invoice?.email.toLowerCase().includes(query.toLowerCase()) ||
+    invoice?.amount.toString().includes(query) ||
+    invoice?.date.includes(query) ||
+    invoice?.status.toLowerCase().includes(query)
   );
 
   // Paginate the filtered invoices
   const paginatedInvoices = filteredInvoices.slice(offset, offset + ITEMS_PER_PAGE);
 
   // Return the filtered and paginated invoices wrapped in a Promise
-  return Promise.resolve(paginatedInvoices);
+  // return Promise.resolve(paginatedInvoices);
+  return paginatedInvoices;
 }
 
 
@@ -177,19 +166,20 @@ export async function fetchInvoicesPages(query: string) {
   }
 }
 
-export function fetchInvoicesPagesStatic(query: string) {
-  const filteredInvoices = staticInvoices.filter(invoice =>
-    invoice.name.toLowerCase().includes(query.toLowerCase()) ||
-    invoice.email.toLowerCase().includes(query.toLowerCase()) ||
-    invoice.amount.toString().includes(query) ||
-    invoice.date.includes(query) ||
-    invoice.status.toLowerCase().includes(query)
+export function fetchInvoicesPagesStatic(query: string, invoices: any = []) {
+  const filteredInvoices = invoices.filter((invoice: any) =>
+    invoice?.name.toLowerCase().includes(query.toLowerCase()) ||
+    invoice?.email.toLowerCase().includes(query.toLowerCase()) ||
+    invoice?.amount.toString().includes(query) ||
+    invoice?.date.includes(query) ||
+    invoice?.status.toLowerCase().includes(query)
   );
 
   // Calculate total pages (based on filtered results)
   const totalPages = Math.ceil(filteredInvoices.length / ITEMS_PER_PAGE);
 
-  return Promise.resolve(totalPages);  // Return a Promise, as in the original async function
+  // return Promise.resolve(totalPages);  // Return a Promise, as in the original async function
+  return totalPages;
 }
 
 export async function fetchInvoiceById(id: string) {
@@ -217,9 +207,9 @@ export async function fetchInvoiceById(id: string) {
   }
 }
 
-export function fetchInvoiceByIdStatic(id: string) {
+export function fetchInvoiceByIdStatic(id: string, invoicesState: any) {
   // Find the invoice with the matching ID
-  const invoice = staticInvoices.find(invoice => invoice.id === id);
+  const invoice = invoicesState.find((invoice: any) => invoice.id === id);
 
   if (!invoice) {
     // Simulate an error if the invoice is not found
@@ -232,8 +222,7 @@ export function fetchInvoiceByIdStatic(id: string) {
     amount: invoice.amount / 100,
   };
 
-  // Simulate asynchronous operation
-  return Promise.resolve(formattedInvoice);
+  return formattedInvoice
 }
 
 
@@ -257,16 +246,11 @@ export async function fetchCustomers() {
 
 export function fetchCustomersStatic() {
   // Static data simulating the customer records
-  const staticCustomers = [
-    { id: "1", name: 'Alice Smith' },
-    { id: "2", name: 'Bob Johnson' },
-    { id: "3", name: 'Charlie Brown' },
-    { id: "4", name: 'Diana Ross' },
-    { id: "5", name: 'Eve Adams' },
-  ];
+  const state = store.getState();
+  const customersState = state?.customers || [];
 
   // Simulate an asynchronous operation by returning a Promise
-  return Promise.resolve(staticCustomers);
+  return Promise.resolve(customersState);
 }
 
 
@@ -304,32 +288,9 @@ export async function fetchFilteredCustomers(query: string) {
 }
 
 
-export function fetchFilteredCustomersStatic(query: string) {
-  // Static data to simulate customer records
-  const staticCustomers = [
-    {
-      id: '1',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      image_url: 'https://randomuser.me/api/portraits/men/1.jpg',
-      total_invoices: 5,
-      total_pending: 200,
-      total_paid: 800,
-    },
-    {
-      id: '2',
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      image_url: 'https://randomuser.me/api/portraits/women/1.jpg',
-      total_invoices: 3,
-      total_pending: 150,
-      total_paid: 450,
-    },
-    // Add more static customer data as needed
-  ];
-
+export function fetchFilteredCustomersStatic(query: string, customers: any) {
   // Filter the static data based on the query
-  const filteredCustomers = staticCustomers.filter((customer) =>
+  const filteredCustomers = customers.filter((customer) =>
     customer.name.toLowerCase().includes(query.toLowerCase()) ||
     customer.email.toLowerCase().includes(query.toLowerCase())
   );
