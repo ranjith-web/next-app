@@ -2,12 +2,14 @@ import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/components/invoices/buttons';
 import InvoiceStatus from '@/app/components/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
+import { useTranslations } from 'next-intl';
 
 export default function InvoicesTable({
   data
 }: {
   data: any;
 }) {
+  const translateMessage = useTranslations();
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -53,19 +55,19 @@ export default function InvoicesTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
+                  {translateMessage("Invoices.customer")}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                  {translateMessage("Common.email")}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
+                  {translateMessage("Common.amount")}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Date
+                  {translateMessage("Common.date")}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Status
+                  {translateMessage("Common.status")}
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>

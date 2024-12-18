@@ -8,23 +8,25 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-
-
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-const baseLinks = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
-];
-
-const adminLink = {
-  name: 'Invoices',
-  href: '/dashboard/invoices',
-  icon: DocumentDuplicateIcon,
-};
+import {useTranslations} from 'next-intl';
 
 export default function NavLinks({ role = "" }) {
+  const translateMessage = useTranslations('Common');
   const pathname = usePathname();
+  // Map of links to display in the side navigation.
+  // Depending on the size of the application, this would be stored in a database.
+  const baseLinks = [
+    { name: 'Home', href: '/dashboard', icon: HomeIcon, label: translateMessage('home') },
+    { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon, label: translateMessage('customers') },
+  ];
+
+  const adminLink = {
+    name: 'Invoices',
+    href: '/dashboard/invoices',
+    icon: DocumentDuplicateIcon,
+    label: translateMessage('invoices')
+  };
+
   const links =
     role === 'admin'
       ? [
@@ -49,7 +51,7 @@ export default function NavLinks({ role = "" }) {
             )}
           >
             <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p>
+            <p className="hidden md:block">{link.label}</p>
           </Link>
         );
       })}

@@ -1,29 +1,33 @@
 {
-  "AppLayout": {
-    "home": "Start",
-    "logout": "Abmelden",
-    "profile": "Profil"
+  "Common": {
+    "dashboard": "Instrumententafel",
+    "invoices": "Rechnungen",
+    "customers": "Kunden",
+    "updatedJustNow": "Gerade eben aktualisiert",
+    "signOut": "Abmelden",
+    "home": "Startseite",
+    "searchInvoices": "Rechnungen suchen...",
+    "email": "E-Mail",
+    "amount": "Betrag",
+    "date": "Datum",
+    "status": "Status"
   },
-  "HomePage": {
-    "title": "Start"
+  "Invoices": {
+    "createInvoice": "Rechnung erstellen",
+    "customer": "Kunde"
+  },
+  "Dashboard": {
+    "collected": "Eingezogen",
+    "pending": "Ausstehend",
+    "totalInvoices": "Gesamt Rechnungen",
+    "totalCustomers": "Gesamt Kunden",
+    "recentRevenue": "Aktuelle Einnahmen",
+    "latestInvoices": "Neueste Rechnungen",
+    "lastValueMonths": "Letzte {months} Monate"
   },
   "LocaleSwitcher": {
     "de": "Deutsch",
     "en": "English",
     "label": "Sprache"
-  },
-  "LoginPage": {
-    "credentials": "Anmeldedaten: jane@doe.com / next-intl",
-    "description": "Bitte geben Sie Ihre Daten ein.",
-    "email": "Email",
-    "invalidCredentials": "Bitte überprüfen Sie Ihre Anmeldedaten.",
-    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-    "invalidPassword": "Bitte geben Sie ein Passwort ein.",
-    "login": "Anmelden",
-    "password": "Passwort",
-    "title": "Willkommen zurück"
-  },
-  "ProfilePage": {
-    "title": "Profil"
   }
 }

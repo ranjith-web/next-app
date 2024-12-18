@@ -1,29 +1,33 @@
 {
-  "AppLayout": {
+  "Common": {
+    "dashboard": "Dashboard",
+    "invoices": "Invoices",
+    "customers": "Customers",
+    "updatedJustNow": "Updated just now",
     "home": "Home",
-    "logout": "Logout",
-    "profile": "Profile"
+    "signOut": "Sign Out",
+    "searchInvoices": "Search invoices...",
+    "email": "Email",
+    "amount": "Amount",
+    "date": "Date",
+    "status": "Status"
   },
-  "HomePage": {
-    "title": "Home"
+  "Dashboard": {
+    "collected": "Collected",
+    "pending": "Pending",
+    "totalInvoices": "Total Invoices",
+    "totalCustomers": "Total Customers",
+    "recentRevenue": "Recent Revenue",
+    "latestInvoices": "Latest Invoices",
+    "lastValueMonths": "Last {months} Months"
+  },
+  "Invoices": {
+    "createInvoice": "Create Invoice",
+    "customer": "Customer"
   },
   "LocaleSwitcher": {
     "de": "Deutsch",
     "en": "English",
     "label": "Language"
-  },
-  "LoginPage": {
-    "credentials": "Credentials: jane@doe.com / next-intl",
-    "description": "Please enter your details.",
-    "email": "Email",
-    "invalidCredentials": "Please check your credentials.",
-    "invalidEmail": "Please enter a valid email address.",
-    "invalidPassword": "Please enter a password.",
-    "login": "Sign in",
-    "password": "Password",
-    "title": "Welcome back"
-  },
-  "ProfilePage": {
-    "title": "Profile"
   }
 }
