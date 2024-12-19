@@ -10,7 +10,8 @@
     "email": "Email",
     "amount": "Amount",
     "date": "Date",
-    "status": "Status"
+    "status": "Status",
+    "posts": "Posts"
   },
   "Dashboard": {
     "collected": "Collected",

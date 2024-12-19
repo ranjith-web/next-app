@@ -16,7 +16,7 @@ export default function Content(props: {
     const { query = '' } = props;
     const customerState = useSelector((state: RootState) => state.customers);
     const customers = fetchFilteredCustomersStatic(query, customerState);
-
+    
     return (
         <main>
             <CustomersTable customers={customers} />

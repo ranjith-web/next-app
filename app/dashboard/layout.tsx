@@ -12,7 +12,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
             </div>
 
             <div className="flex-grow flex flex-col">
-                <div className="flex items-center justify-end p-6 md:p-12">
+                <div className="flex items-center justify-end p-6 md:p-3">
                     <span>{user?.name}</span>
                     <LocaleSwitcher />
                 </div>

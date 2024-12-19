@@ -10,7 +10,8 @@
     "email": "E-Mail",
     "amount": "Betrag",
     "date": "Datum",
-    "status": "Status"
+    "status": "Status",
+    "posts": "Beiträge"
   },
   "Invoices": {
     "createInvoice": "Rechnung erstellen",

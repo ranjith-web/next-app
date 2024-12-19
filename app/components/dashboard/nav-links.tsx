@@ -4,6 +4,7 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  ChatBubbleBottomCenterIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,6 +19,7 @@ export default function NavLinks({ role = "" }) {
   const baseLinks = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon, label: translateMessage('home') },
     { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon, label: translateMessage('customers') },
+    { name: 'Posts', href: '/dashboard/posts', icon: ChatBubbleBottomCenterIcon, label: translateMessage('posts') },
   ];
 
   const adminLink = {
