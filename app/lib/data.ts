@@ -290,13 +290,13 @@ export async function fetchFilteredCustomers(query: string) {
 
 export function fetchFilteredCustomersStatic(query: string, customers: any) {
   // Filter the static data based on the query
-  const filteredCustomers = customers.filter((customer) =>
+  const filteredCustomers = customers.filter((customer: any) =>
     customer.name.toLowerCase().includes(query.toLowerCase()) ||
     customer.email.toLowerCase().includes(query.toLowerCase())
   );
 
   // Format the data before returning
-  const formattedCustomers = filteredCustomers.map((customer) => ({
+  const formattedCustomers = filteredCustomers.map((customer: any) => ({
     ...customer,
     total_pending: formatCurrency(customer.total_pending),
     total_paid: formatCurrency(customer.total_paid),

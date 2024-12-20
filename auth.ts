@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { User } from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
@@ -21,7 +21,7 @@ function getUser(email: string): Promise<User | undefined> {
 }
 
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
     ...authConfig,
     providers: [Credentials({
         async authorize(credentials) {
@@ -31,7 +31,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
             if (parsedCredentials.success) {
                 const { email, password } = parsedCredentials.data;
-                const user = await getUser(email);
+                const user = await getUser(email) as any;
                 if (!user) return null;
 
                 const saltRounds = 10;

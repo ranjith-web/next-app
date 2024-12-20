@@ -48,7 +48,7 @@ export default function Content() {
     if (error) return <div className="text-red-500 text-center">{error}</div>;
 
     return (
-        <main className="p-6">
+        <main>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {posts.map((post: any) => (
                     <div

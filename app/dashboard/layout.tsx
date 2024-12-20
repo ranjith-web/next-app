@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import LocaleSwitcher from '@/app/components/localeSwitcher';
  
 export default async function Layout({ children }: { children: React.ReactNode }) {
-    const { user } = await auth();
+    const { user } = await auth() as any;
     return (
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
             {/* Sidebar */}

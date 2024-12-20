@@ -4,7 +4,7 @@ export const authConfig = {
     pages: {
         signIn: '/login',
     }, callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }: any) {
             if (user) {
               // Here, we are storing custom user properties into the JWT token
               token.id = user.id;
@@ -14,7 +14,7 @@ export const authConfig = {
             }
             return token;
         },
-        async session({ session, token }) {
+        async session({ session, token }: any) {
             // Here, we extend the session object with properties from the token
             if (token) {
               session.user.id = token.id;
@@ -24,7 +24,7 @@ export const authConfig = {
             }
             return session;
         },
-        authorized({ auth, request: { nextUrl } }) {
+        authorized({ auth, request: { nextUrl } }: any) {
             const isLoggedIn = !!auth?.user;
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             // List of restricted routes with role-based access control
