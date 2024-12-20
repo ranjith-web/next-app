@@ -52,26 +52,31 @@ This project uses various NPM scripts for building, starting, and running the ap
 
 6. Environment Configuration
 
-This project uses .env files to manage environment variables:
+This project uses `.env` files to manage environment variables:
 
-.env.production for the production environment.
-.env.staging for the staging environment.
-.env.local for local development (loaded automatically).
+`.env.production` for the production environment.
+`.env.staging` for the staging environment.
+`.env.development` for local development (loaded automatically).
 You can add environment-specific variables in these files.
 
 Example Usage
+
 Build and Start in Production
 
-pnpm build:production
-pnpm start:production
+`pnpm build:production`
+`pnpm start:production`
+
 Build and Start in Staging
 
-pnpm build:staging
-pnpm start:staging
+`pnpm build:staging`
+`pnpm start:staging`
+
 Local Development
 
-pnpm dev
-Troubleshooting
+`pnpm dev`
+
+## Troubleshooting:
+
 Ensure the .env files are correctly formatted and located in the root directory.
 If environment variables are missing, verify the .env file and ensure it matches the script being used.
 This README section can be added to your project's documentation to clarify the usage of the scripts.
