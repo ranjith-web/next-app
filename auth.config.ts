@@ -1,5 +1,14 @@
 import type { NextAuthConfig } from 'next-auth';
 
+const PUBLIC_ROUTES = [
+    '/dashboard',
+    '/applyleave'
+];
+
+const restrictedRoutes = [
+    '/dashboard/invoices'
+];
+
 export const authConfig = {
     pages: {
         signIn: '/login',
@@ -26,9 +35,8 @@ export const authConfig = {
         },
         authorized({ auth, request: { nextUrl } }: any) {
             const isLoggedIn = !!auth?.user;
-            const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+            const isPublicRoute = PUBLIC_ROUTES.find(route => nextUrl.pathname.startsWith(route))
             // List of restricted routes with role-based access control
-            const restrictedRoutes = ['/dashboard/invoices'];
 
             // Check for protected routes and validate role
             if (restrictedRoutes.includes(nextUrl.pathname)) {
@@ -37,11 +45,18 @@ export const authConfig = {
                 }
                 return false; // Deny access for non-admin users
             }
+
+            // Allow custom routes (e.g., /applyleave) for logged-in users
+            if (isLoggedIn && PUBLIC_ROUTES.includes(nextUrl.pathname)) {
+                return true;
+            }
             
-            if (isOnDashboard) {
+            if (isPublicRoute) {
                 if (isLoggedIn) return true;
                 return false; // Redirect unauthenticated users to login page
-            } else if (isLoggedIn) {
+            }
+            
+            if (isLoggedIn) {
                 return Response.redirect(new URL('/dashboard', nextUrl));
             }
             return true;
