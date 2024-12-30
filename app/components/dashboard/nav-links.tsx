@@ -31,7 +31,6 @@ export default function NavLinks({ role = "" }) {
     label: translateMessage('invoices')
   };
 
-  console.log("role--->", role)
   const links =
     role === 'admin'
       ? [

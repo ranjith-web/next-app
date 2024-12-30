@@ -6,7 +6,7 @@ const PUBLIC_ROUTES = [
 ];
 
 const restrictedRoutes = [
-    '/dashboard/invoices'
+    '/dashboard/invoices',
 ];
 
 export const authConfig = {
