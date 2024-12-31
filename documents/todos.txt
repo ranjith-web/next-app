@@ -1,0 +1,65 @@
+WaveMaker automatically generates Angular applications because it uses Angular as the default frontend framework for building its applications. This behavior is part of WaveMaker’s architecture and deployment model.
+
+Here’s how this process works:
+
+1. WaveMaker's Architecture
+WaveMaker is a low-code platform designed to streamline app development. Internally, it:
+
+    1. Generates Code: Converts visual design components and configurations into working code.
+    2. Frontend Framework: Uses Angular as the default frontend framework to scaffold and build the user interface.
+    3. Backend Services: Integrates with Java-based Spring services or REST APIs for business logic.
+
+2. How WaveMaker Generates Angular Code
+When you export or download a WaveMaker project, it transforms the visual components into Angular code. Here's how this happens:
+
+    1. Component Mapping:
+
+        a. WaveMaker UI widgets (e.g., inputs, grids, buttons) are mapped to Angular components or directives.
+
+    2. Angular Project Scaffolding:
+
+        a, WaveMaker uses a predefined Angular project structure, which includes:
+            1. src/app: Contains generated components, services, and modules.
+            2. Angular CLI Configuration (angular.json): Configures the Angular build system.
+            3. Dependencies (package.json): Lists required Angular libraries and dependencies.
+        b, WaveMaker generates the project following Angular's best practices.
+    
+    3. Template and Binding Conversion:
+
+        a, WaveMaker markup (<wm-button>, <wm-input>) is converted to Angular templates.
+        b, Data bindings ({{username}}) are transformed into Angular bindings using [(ngModel)].
+    4. Service Integration:
+
+        1, WaveMaker variables, APIs, and database queries are mapped to Angular services (*.service.ts).
+
+    5. Build Process:
+
+        a, WaveMaker bundles the Angular project into a zip file with all necessary dependencies and configurations.
+
+3. Why Angular?
+WaveMaker uses Angular for the following reasons:
+
+    1. Component-Based Architecture: Angular’s reusable components align well with WaveMaker’s widget-based UI design.
+    2. Two-Way Data Binding: Simplifies linking data between the UI and backend services.
+    3. Robust Ecosystem: Angular provides a comprehensive framework, reducing the need for third-party dependencies.
+    4. Industry Standard: Angular is widely used for enterprise applications, making it suitable for WaveMaker’s target audience.
+
+4. Customizing the Angular Project
+After downloading the Angular app:
+
+    1. Modify Components: Update UI components or templates in the src/app folder.
+    2. Add Features: Integrate additional libraries or custom code as needed.
+    3. Build & Deploy: Use Angular CLI commands to build and deploy the app.
+
+5. Transforming to React
+If you prefer React, you can:
+
+    1. Analyze the Angular Code: Understand the generated Angular components, services, and structure.
+    2. Replicate in React:
+        a, Convert Angular components into React functional components.
+        b, Replace Angular services with React context or hooks (e.g., useContext or useReducer).
+
+    3. Use Tools:
+        a, Code Conversion Tools: Some tools can assist in converting TypeScript-based Angular code to React.
+        b, Manual Refactoring: Rewrite the logic manually for more control and optimization.
+        c, WaveMaker generates Angular apps as part of its design philosophy, but with the knowledge of the generated codebase, you can easily extend or transform it into another framework like React.
